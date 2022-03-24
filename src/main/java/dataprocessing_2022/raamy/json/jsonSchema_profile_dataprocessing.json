@@ -1,0 +1,29 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://github.com/RaamyAfifi/dataprocessing_2021-2022",
+	"title": "Profile",
+	"description": "A profile",
+	"type": "object",
+	"properties": {
+		"profile":{
+			"description": "Unique name for a specific profile",
+			"type": "String"
+		},
+		"gender":{
+			"description": "Gender of a user. (Man, Women, Neutral)",
+			"type": "String"
+		},
+		"birthday":{
+			"description": "Birthday of a user.",
+			"type": "String"
+		},
+		"favorites_anime":{
+			"description": "Contains the favorite animes of a user.",
+			"type": "String"
+		},
+		"link":{
+			"description": "link of a specific user.",
+			"type": "String"
+		}
+	}
+}

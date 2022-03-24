@@ -2,6 +2,7 @@ package dataprocessing_2022.raamy.controllers;
 
 import dataprocessing_2022.raamy.models.ProfileModel;
 import dataprocessing_2022.raamy.repositories.ProfileRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,12 +25,20 @@ public class ProfileController
 
     @CrossOrigin
     @GetMapping
+    @ApiOperation(
+            value = "Get all profiles from the database",
+            notes = "",
+            response = List.class )
     public Iterable<ProfileModel> findAllProfile() {
         return service.findAll();
     }
 
     @CrossOrigin
     @GetMapping("/{id}")
+    @ApiOperation(
+            value = "Finds a profile by the id, which is a string.",
+            notes = "",
+            response = ProfileModel.class )
     public ResponseEntity<ProfileModel> findProfileById(@PathVariable(value = "id") String id) {
         Optional<ProfileModel> profile = service.findById(id);
 
@@ -42,6 +52,10 @@ public class ProfileController
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(
+            value = "Puts a profile into the database",
+            notes = "",
+            response = ProfileModel.class )
     public ProfileModel replaceEmployee(@RequestBody ProfileModel profileModel, @PathVariable String id) {
         return service.findById(id)
                 .map(profile -> {
@@ -60,6 +74,10 @@ public class ProfileController
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(
+            value = "Deletes a specific profile by id. If you would like to delete a specific profile use following: http://localhost:8080/profiles/{id}",
+            notes = "",
+            response = ProfileModel.class )
     void deleteEmployee(@PathVariable String id) {
         service.deleteById(id);
     }

@@ -1,5 +1,7 @@
 package dataprocessing_2022.raamy.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,17 +11,24 @@ import javax.validation.constraints.NotNull;
 public class AnimeModel
 {
     @Id
+    @ApiModelProperty(notes = "beschrijving", dataType = "int")
     private int uid;
     @NotBlank(message = "Uid is mandatory")
+    @ApiModelProperty(notes = "title on an anime", dataType = "String")
     private String title;
     @NotNull(message = "Title is mandatory")
+    @ApiModelProperty(notes = "Genre of an anime", dataType = "String")
     private String genre;
     @NotNull(message = "Genre is mandatory")
+    @ApiModelProperty(notes = "Date when anime aired", dataType = "String")
     private String aired;
     @NotBlank(message = "Aired is mandatory")
+    @ApiModelProperty(notes = "Amount of episode per anime", dataType = "String")
     private String episodes;
     @NotNull(message = "Episodes is mandatory")
+    @ApiModelProperty(notes = "Members of a specific anime", dataType = "int")
     private int members;
+    @ApiModelProperty(notes = "Average score of an anime", dataType = "float")
     private float score;
 
     public AnimeModel(int uid, @NotBlank(message = "Uid is mandatory") String title, @NotBlank(message = "Title is mandatory") String genre, @NotNull(message = "Genre is mandatory") String aired, @NotBlank(message = "Aired is mandatory") String episodes, @NotNull(message = "Episodes is mandatory") int members, float score)

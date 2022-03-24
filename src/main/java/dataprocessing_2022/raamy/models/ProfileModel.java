@@ -1,5 +1,7 @@
 package dataprocessing_2022.raamy.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,18 +14,23 @@ import java.lang.reflect.Array;
 public class ProfileModel
 {
     @Id
+    @ApiModelProperty(notes = "Name of an specific user", dataType = "String")
     private String profile;
 
     @NotNull(message = "Gender might be empty but not null. ")
+    @ApiModelProperty(notes = "Gender of a user ", dataType = "String")
     private String gender;
 
     @NotNull(message = "Birthday might be empty but not null. ")
+    @ApiModelProperty(notes = "Birthday of a user", dataType = "String")
     private String birthday;
 
     @NotNull(message = "Favorite_anime might be empty but not null. ")
+    @ApiModelProperty(notes = "favorite animes of a user", dataType = "String")
     private String favorites_anime;
 
     @NotBlank(message = "Link is mandatory. ")
+    @ApiModelProperty(notes = "Specific link of a user", dataType = "String")
     private String link;
 
     public ProfileModel(String profile, @NotNull(message = "Gender might be empty but not null. ") String gender, @NotNull(message = "Birthday might be empty but not null. ") String birthday, @NotNull(message = "Favorite_anime might be empty but not null. ") String favorites_anime, @NotBlank(message = "link is mandatory") String link)

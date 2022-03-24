@@ -1,7 +1,9 @@
 package dataprocessing_2022.raamy.controllers;
 
+import dataprocessing_2022.raamy.models.ProfileModel;
 import dataprocessing_2022.raamy.models.ReviewModel;
 import dataprocessing_2022.raamy.repositories.ReviewRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,12 +26,20 @@ public class ReviewController
 
     @CrossOrigin
     @GetMapping
+    @ApiOperation(
+            value = "Get all the reviews",
+            notes = "",
+            response = List.class )
     public Iterable<ReviewModel> findAllReview() {
         return service.findAll();
     }
 
     @CrossOrigin
     @GetMapping("/{id}")
+    @ApiOperation(
+            value = "Get a single review by Id. If you would like to select a specific review use following: http://localhost:8080/reviews/{id}",
+            notes = "",
+            response = List.class )
     public ResponseEntity<ReviewModel> findReviewById(@PathVariable(value = "id") int id) {
         Optional<ReviewModel> review = service.findById(id);
 
@@ -42,6 +53,10 @@ public class ReviewController
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(
+            value = "puts a review into the database",
+            notes = "",
+            response = List.class )
     public ReviewModel replaceEmployee(@RequestBody ReviewModel reviewModel, @PathVariable int id) {
         return service.findById(id)
                 .map(review -> {
@@ -60,6 +75,10 @@ public class ReviewController
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(
+            value = "Deletes a specific review by id. If you would like to delete a specific review use following: http://localhost:8080/review/{id}",
+            notes = "",
+            response = ProfileModel.class )
     void deleteEmployee(@PathVariable int id) {
         service.deleteById(id);
     }

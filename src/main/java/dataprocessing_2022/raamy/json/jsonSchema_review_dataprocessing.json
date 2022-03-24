@@ -1,0 +1,29 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://github.com/RaamyAfifi/dataprocessing_2021-2022",
+	"title": "Review",
+	"description": "review of an anime",
+	"type": "object",
+	"properties": {
+		"uid":{
+			"description": "Unique numer for a specific anime",
+			"type": "int"
+		},
+		"profile":{
+			"description": "Name of a user",
+			"type": "string"
+		},
+		"anime_uid":{
+			"description": "uid of an anime",
+			"type": "int"
+		},
+		"score":{
+			"description": "score of a anime given by a user",
+			"type": "int"
+		},
+		"link":{
+			"description": "link of a specific review of a user.",
+			"type": "String"
+		}
+	}
+}
