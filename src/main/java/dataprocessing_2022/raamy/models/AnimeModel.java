@@ -3,7 +3,6 @@ package dataprocessing_2022.raamy.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Array;
 
 @Entity
 @Table(name="anime")
