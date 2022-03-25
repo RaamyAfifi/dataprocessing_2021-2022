@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -39,8 +40,8 @@ public class AnimeController
     @CrossOrigin
     @GetMapping("/{id}")
     @ApiOperation(
-            value = "",
-            notes = "",
+            value = "Gets a specific anime by id. If you would like to select a specific anime use following: http://localhost:8080/animes/{id}",
+            notes = "id is a number starting from 1",
             response = AnimeModel.class )
     public ResponseEntity<AnimeModel> findAnimeById(@ApiParam(value = "") @PathVariable(value = "id") int id) {
         Optional<AnimeModel> anime = service.findById(id);
@@ -50,20 +51,21 @@ public class AnimeController
 
     @PostMapping
     @ApiOperation(
-            value = "",
+            value = "Creates",
             notes = "",
             response = AnimeModel.class )
     @ResponseStatus(HttpStatus.CREATED)
-    public AnimeModel create(@Valid @RequestBody AnimeModel animeModel) {
+    public AnimeModel createAnime(@Valid @RequestBody AnimeModel animeModel) {
         return service.save(animeModel);
     }
 
+
     @PutMapping("/{id}")
     @ApiOperation(
-            value = "Puts an anime into the database",
+            value = "Update/puts an anime into the database",
             notes = "",
             response = AnimeModel.class )
-    public AnimeModel replaceEmployee(@ApiParam(value = "Id of the anime you would like to update") @RequestBody AnimeModel animeModel, @PathVariable int id) {
+    public AnimeModel replaceAnime(@ApiParam(value = "Id of the anime you would like to update") @RequestBody AnimeModel animeModel, @PathVariable int id) {
         return service.findById(id)
                 .map(anime -> {
                     anime.setUid(animeModel.getUid());
@@ -86,7 +88,7 @@ public class AnimeController
     @ApiOperation(
             value = "Deletes a specific anime by ID",
             notes = "" )
-    void deleteEmployee(@ApiParam(value = "Id of the anime you would like to delete.") @PathVariable int id) {
+    void deleteAnime(@ApiParam(value = "Id of the anime you would like to delete.") @PathVariable int id) {
         service.deleteById(id);
     }
 

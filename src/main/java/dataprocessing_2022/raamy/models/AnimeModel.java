@@ -28,10 +28,10 @@ public class AnimeModel
     @NotNull(message = "Episodes is mandatory")
     @ApiModelProperty(notes = "Members of a specific anime", dataType = "int")
     private int members;
-    @ApiModelProperty(notes = "Average score of an anime", dataType = "float")
-    private float score;
+    @ApiModelProperty(notes = "Average score of an anime", dataType = "String")
+    private String score;
 
-    public AnimeModel(int uid, @NotBlank(message = "Uid is mandatory") String title, @NotBlank(message = "Title is mandatory") String genre, @NotNull(message = "Genre is mandatory") String aired, @NotBlank(message = "Aired is mandatory") String episodes, @NotNull(message = "Episodes is mandatory") int members, float score)
+    public AnimeModel(int uid, @NotBlank(message = "Uid is mandatory") String title, @NotBlank(message = "Title is mandatory") String genre, @NotNull(message = "Genre is mandatory") String aired, @NotBlank(message = "Aired is mandatory") String episodes, @NotNull(message = "Episodes is mandatory") int members, String score)
     {
         this.uid = uid;
         this.title = title;
@@ -107,12 +107,12 @@ public class AnimeModel
         this.members = members;
     }
 
-    public float getScore()
+    public String getScore()
     {
         return score;
     }
 
-    public void setScore(float score)
+    public void setScore(String score)
     {
         this.score = score;
     }

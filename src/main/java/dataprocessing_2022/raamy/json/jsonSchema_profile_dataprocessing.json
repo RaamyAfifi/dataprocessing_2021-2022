@@ -7,23 +7,67 @@
 	"properties": {
 		"profile":{
 			"description": "Unique name for a specific profile",
-			"type": "String"
+			"type": "string"
 		},
 		"gender":{
 			"description": "Gender of a user. (Man, Women, Neutral)",
-			"type": "String"
+			"type": "string"
 		},
 		"birthday":{
 			"description": "Birthday of a user.",
-			"type": "String"
+			"type": "string",
+			"max": "current date"
 		},
 		"favorites_anime":{
 			"description": "Contains the favorite animes of a user.",
-			"type": "String"
+			"type": "array",
+			"items": [{
+				"type": "object",
+				"properties":{
+					"uid":{
+						"description": "Unique number for a specific anime",
+						"type": "number",
+						"min": 1
+					},
+					"title":{
+						"description": "name of anime",
+						"type": "string"
+					},
+					"genre":{
+						"description": "Array of genres",
+						"type": "array",
+						"min": "minum one genre"
+					},
+					"aired":{
+						"description": "Date of aired anime",
+						"type": "string",
+						"max": "current Date"
+					},
+					"episodes":{
+						"description": "amount of episodes",
+						"type": "number",
+						"min": 0
+					},
+					"members" :{
+						"description": "amount of members",
+						"type": "number",
+						"min": 0
+					},
+					"score" :{
+						"description": "average score of an anime",
+						"type": "number",
+						"min": 0,
+						"max": 10
+					} 
+						
+					}, "required": ["uid", "title", "genre", "aired", "episodes", "members", "score"]
+				}
+			]
 		},
 		"link":{
 			"description": "link of a specific user.",
-			"type": "String"
+			"type": "string"
 		}
-	}
+	}, "required": ["profile", "gender", "birthday", "link"]
+	
 }

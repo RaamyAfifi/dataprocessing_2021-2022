@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <profile>Palmero</profile>
+  <gender>Neutral</gender>
+  <birthday>2 0ct, 2010</birthday>
+  <link>google.com</link>
+  <favorites_anime>
+    <uid>2</uid>
+    <title>One Piece</title>
+    <genre>Super Natural</genre>
+    <genre>Magic</genre>
+    <aired>2 oct, 2010</aired>
+    <episodes>48</episodes>
+    <members>483</members>
+    <score>8</score>
+  </favorites_anime>
+</root>

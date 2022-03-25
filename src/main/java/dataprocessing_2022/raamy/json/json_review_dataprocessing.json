@@ -1,0 +1,15 @@
+{
+    "uid": 2,
+    "profile": "RubberDucky",
+    "anime_uid": {
+      "uid": 7,
+      "title": "Sword Art Online",
+      "genre": ["Magic", "Romance"],
+      "aired": "3 sep, 2016",
+      "episodes": 50,
+      "members": 51265,
+      "score": 9.5
+    },
+    "score": 10.0,
+    "link": "google.com"
+  }

@@ -7,7 +7,8 @@
 	"properties": {
 		"uid":{
 			"description": "Unique numer for a specific anime",
-			"type": "int"
+			"type": "number",
+			"min": 1
 		},
 		"profile":{
 			"description": "Name of a user",
@@ -15,15 +16,56 @@
 		},
 		"anime_uid":{
 			"description": "uid of an anime",
-			"type": "int"
+			"type": "object",
+			"properties": {
+				"uid":{
+					"description": "Unique number for a specific anime",
+					"type": "number",
+					"min": 1
+				},
+				"title":{
+					"description": "name of anime",
+					"type": "string"
+				},
+				"genre":{
+					"description": "array of genres",
+					"type": "array",
+					"min": "minum one genre"
+				},
+				"aired":{
+					"description": "string of aired anime",
+					"type": "string",
+					"max": "current string"
+				},
+				"episodes":{
+					"description": "amount of episodes",
+					"type": "number",
+					"min": 0
+				},
+				"members" :{
+					"description": "amount of members",
+					"type": "number",
+					"min": 0
+				},
+				"score" :{
+					"description": "average score of an anime",
+					"type": "number",
+					"min": 0,
+					"max": 10
+				}
+			},"required": ["uid", "title", "genre", "aired", "episodes", "members", "score"],
+
+			"min": 1
 		},
 		"score":{
 			"description": "score of a anime given by a user",
-			"type": "int"
+			"type": "number",
+			"min": 0,
+			"max": 10
 		},
 		"link":{
 			"description": "link of a specific review of a user.",
-			"type": "String"
+			"type": "string"
 		}
-	}
+	}, "required": ["uid", "title", "genre", "aired", "episodes", "members", "score"]
 }

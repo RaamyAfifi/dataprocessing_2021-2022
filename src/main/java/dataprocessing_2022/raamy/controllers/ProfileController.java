@@ -1,5 +1,6 @@
 package dataprocessing_2022.raamy.controllers;
 
+import dataprocessing_2022.raamy.models.AnimeModel;
 import dataprocessing_2022.raamy.models.ProfileModel;
 import dataprocessing_2022.raamy.repositories.ProfileRepository;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -48,7 +50,7 @@ public class ProfileController
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProfileModel create(@Valid @RequestBody ProfileModel profileModel) {
+    public ProfileModel createProfile(@Valid @RequestBody ProfileModel profileModel) {
         return service.save(profileModel);
     }
 
@@ -79,7 +81,7 @@ public class ProfileController
             value = "Deletes a specific profile by id. If you would like to delete a specific profile use following: http://localhost:8080/profiles/{id}",
             notes = "",
             response = ProfileModel.class )
-    void deleteEmployee(@PathVariable String id) {
+    void deleteProfile(@PathVariable String id) {
         service.deleteById(id);
     }
 

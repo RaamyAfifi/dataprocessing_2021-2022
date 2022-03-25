@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <uid>2</uid>
+  <profile>RubberDucky</profile>
+  <anime_uid>
+    <uid>7</uid>
+    <title>Sword Art Online</title>
+    <genre>Magic</genre>
+    <genre>Romance</genre>
+    <aired>3 sep, 2016</aired>
+    <episodes>50</episodes>
+    <members>51265</members>
+    <score>9.5</score>
+  </anime_uid>
+  <score>10</score>
+  <link>google.com</link>
+</root>

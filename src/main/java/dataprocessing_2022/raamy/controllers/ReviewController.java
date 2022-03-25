@@ -49,7 +49,7 @@ public class ReviewController
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ReviewModel create(@Valid @RequestBody ReviewModel reviewModel) {
+    public ReviewModel createReview(@Valid @RequestBody ReviewModel reviewModel) {
         return service.save(reviewModel);
     }
 
@@ -58,7 +58,7 @@ public class ReviewController
             value = "puts a review into the database",
             notes = "",
             response = List.class )
-    public ReviewModel replaceEmployee(@RequestBody ReviewModel reviewModel, @PathVariable int id) {
+    public ReviewModel replaceReview(@RequestBody ReviewModel reviewModel, @PathVariable int id) {
         return service.findById(id)
                 .map(review -> {
                     review.setUid(reviewModel.getUid());

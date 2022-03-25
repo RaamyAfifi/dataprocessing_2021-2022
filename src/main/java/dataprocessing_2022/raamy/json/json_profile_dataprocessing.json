@@ -1,0 +1,17 @@
+{
+    "profile": "Palmero",
+    "gender": "Neutral",
+    "birthday": "2 0ct, 2010",
+    "link": "google.com",
+    "favorites_anime": [
+      {
+        "uid": 2.0,
+        "title": "One Piece",
+        "genre": ["Super Natural", "Magic"],
+        "aired": "2 oct, 2010",
+        "episodes": 48.0,
+        "members": 483.0,
+        "score": 8
+      }
+    ]
+  }
