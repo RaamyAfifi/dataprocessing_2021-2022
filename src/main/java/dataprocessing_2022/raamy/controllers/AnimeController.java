@@ -1,5 +1,6 @@
 package dataprocessing_2022.raamy.controllers;
 
+import dataprocessing_2022.raamy.exceptions.ResourceNotFoundException;
 import dataprocessing_2022.raamy.models.AnimeModel;
 import dataprocessing_2022.raamy.repositories.AnimeRepository;
 import io.swagger.annotations.ApiOperation;
@@ -18,9 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 @RestController
-@RequestMapping(value = "/animes", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+@RequestMapping(value = "/animes", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, consumes = MediaType.ALL_VALUE)
 public class AnimeController
 {
     @Autowired
@@ -43,10 +43,11 @@ public class AnimeController
             value = "Gets a specific anime by id. If you would like to select a specific anime use following: http://localhost:8080/animes/{id}",
             notes = "id is a number starting from 1",
             response = AnimeModel.class )
-    public ResponseEntity<AnimeModel> findAnimeById(@ApiParam(value = "") @PathVariable(value = "id") int id) {
+    public ResponseEntity<AnimeModel> findAnimeById(@ApiParam(value = "") @PathVariable(value = "id") int id) throws ResourceNotFoundException
+    {
         Optional<AnimeModel> anime = service.findById(id);
 
-        return anime.map(animeModel -> ResponseEntity.ok().body(animeModel)).orElseGet(() -> ResponseEntity.notFound().build());
+        return anime.map(animeModel -> ResponseEntity.ok().body(animeModel)).orElseThrow(() -> new ResourceNotFoundException("There is no Anime with uid" + id));
     }
 
     @PostMapping
@@ -65,7 +66,8 @@ public class AnimeController
             value = "Update/puts an anime into the database",
             notes = "",
             response = AnimeModel.class )
-    public AnimeModel replaceAnime(@ApiParam(value = "Id of the anime you would like to update") @RequestBody AnimeModel animeModel, @PathVariable int id) {
+    public AnimeModel replaceAnime(@ApiParam(value = "Id of the anime you would like to update") @RequestBody AnimeModel animeModel, @PathVariable int id) throws ResourceNotFoundException
+    {
         return service.findById(id)
                 .map(anime -> {
                     anime.setUid(animeModel.getUid());
@@ -78,18 +80,20 @@ public class AnimeController
 
                     return service.save(anime);
                 })
-                .orElseGet(() -> {
-                    animeModel.setUid(id);
-                    return service.save(animeModel);
-                });
+                .orElseThrow(() -> new ResourceNotFoundException("There is no Anime with uid" + id));
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(
             value = "Deletes a specific anime by ID",
             notes = "" )
-    void deleteAnime(@ApiParam(value = "Id of the anime you would like to delete.") @PathVariable int id) {
-        service.deleteById(id);
+    public Map<String, Boolean> deleteAnime(@ApiParam(value = "Id of the anime you would like to delete.") @PathVariable int id) throws ResourceNotFoundException
+    {
+        AnimeModel animeModel = service.findById(id).orElseThrow(() -> new ResourceNotFoundException("There is no Anime with uid" + id));
+        service.delete(animeModel);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Deleted", true);
+        return  response;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -105,3 +109,4 @@ public class AnimeController
         return errors;
     }
 }
+

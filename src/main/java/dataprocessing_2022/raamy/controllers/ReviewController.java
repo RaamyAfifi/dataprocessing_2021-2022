@@ -1,5 +1,6 @@
 package dataprocessing_2022.raamy.controllers;
 
+import dataprocessing_2022.raamy.exceptions.ResourceNotFoundException;
 import dataprocessing_2022.raamy.models.ProfileModel;
 import dataprocessing_2022.raamy.models.ReviewModel;
 import dataprocessing_2022.raamy.repositories.ReviewRepository;
@@ -19,7 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/reviews", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+@RequestMapping(value = "/reviews", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 public class ReviewController
 {
     @Autowired
@@ -41,10 +42,10 @@ public class ReviewController
             value = "Get a single review by Id. If you would like to select a specific review use following: http://localhost:8080/reviews/{id}",
             notes = "",
             response = List.class )
-    public ResponseEntity<ReviewModel> findReviewById(@PathVariable(value = "id") int id) {
+    public ResponseEntity<ReviewModel> findReviewById(@PathVariable(value = "id") int id) throws ResourceNotFoundException
+    {
         Optional<ReviewModel> review = service.findById(id);
-
-        return review.map(reviewModel -> ResponseEntity.ok().body(reviewModel)).orElseGet(() -> ResponseEntity.notFound().build());
+        return review.map(reviewModel -> ResponseEntity.ok().body(reviewModel)).orElseThrow(() -> new ResourceNotFoundException("There is no Review with id" + id));
     }
 
     @PostMapping
@@ -58,7 +59,8 @@ public class ReviewController
             value = "puts a review into the database",
             notes = "",
             response = List.class )
-    public ReviewModel replaceReview(@RequestBody ReviewModel reviewModel, @PathVariable int id) {
+    public ReviewModel replaceReview(@RequestBody ReviewModel reviewModel, @PathVariable int id) throws ResourceNotFoundException
+    {
         return service.findById(id)
                 .map(review -> {
                     review.setUid(reviewModel.getUid());
@@ -69,10 +71,7 @@ public class ReviewController
 
                     return service.save(review);
                 })
-                .orElseGet(() -> {
-                    reviewModel.setUid(id);
-                    return service.save(reviewModel);
-                });
+                .orElseThrow(() -> new ResourceNotFoundException("There is no Review with id " + id));
     }
 
     @DeleteMapping("/{id}")
@@ -80,8 +79,13 @@ public class ReviewController
             value = "Deletes a specific review by id. If you would like to delete a specific review use following: http://localhost:8080/review/{id}",
             notes = "",
             response = ProfileModel.class )
-    void deleteEmployee(@PathVariable int id) {
+    Map<String, Boolean> deleteEmployee(@PathVariable int id) throws ResourceNotFoundException
+    {
+        ReviewModel reviewModel = service.findById(id).orElseThrow(() -> new ResourceNotFoundException("There is no Review with id " + id));
         service.deleteById(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Deleted", true);
+        return response;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

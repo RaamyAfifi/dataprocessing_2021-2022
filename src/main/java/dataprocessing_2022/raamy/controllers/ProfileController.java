@@ -1,6 +1,6 @@
 package dataprocessing_2022.raamy.controllers;
 
-import dataprocessing_2022.raamy.models.AnimeModel;
+import dataprocessing_2022.raamy.exceptions.ResourceNotFoundException;
 import dataprocessing_2022.raamy.models.ProfileModel;
 import dataprocessing_2022.raamy.repositories.ProfileRepository;
 import io.swagger.annotations.ApiOperation;
@@ -42,10 +42,11 @@ public class ProfileController
             value = "Finds a profile by the id, which is a string.",
             notes = "",
             response = ProfileModel.class )
-    public ResponseEntity<ProfileModel> findProfileById(@PathVariable(value = "id") String id) {
+    public ResponseEntity<ProfileModel> findProfileById(@PathVariable(value = "id") String id) throws ResourceNotFoundException
+    {
         Optional<ProfileModel> profile = service.findById(id);
+        return profile.map(profileModel -> ResponseEntity.ok().body(profileModel)).orElseThrow(() -> new ResourceNotFoundException("There is no Profile with id" + id));
 
-        return profile.map(profileModel -> ResponseEntity.ok().body(profileModel)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -59,7 +60,8 @@ public class ProfileController
             value = "Puts a profile into the database",
             notes = "",
             response = ProfileModel.class )
-    public ProfileModel replaceEmployee(@RequestBody ProfileModel profileModel, @PathVariable String id) {
+    public ProfileModel replaceEmployee(@RequestBody ProfileModel profileModel, @PathVariable String id) throws ResourceNotFoundException
+    {
         return service.findById(id)
                 .map(profile -> {
                     profile.setProfile(profileModel.getProfile());
@@ -70,10 +72,7 @@ public class ProfileController
 
                     return service.save(profile);
                 })
-                .orElseGet(() -> {
-                    profileModel.setProfile(id);
-                    return service.save(profileModel);
-                });
+                .orElseThrow(() -> new ResourceNotFoundException("There is no Profile with id " + id));
     }
 
     @DeleteMapping("/{id}")
@@ -81,8 +80,13 @@ public class ProfileController
             value = "Deletes a specific profile by id. If you would like to delete a specific profile use following: http://localhost:8080/profiles/{id}",
             notes = "",
             response = ProfileModel.class )
-    void deleteProfile(@PathVariable String id) {
+    public Map<String, Boolean> deleteProfile(@PathVariable String id) throws ResourceNotFoundException
+    {
+        ProfileModel profileModel = service.findById(id).orElseThrow(() -> new ResourceNotFoundException("There is no Anime with uid" + id));
         service.deleteById(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Deleted", true);
+        return response;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
