@@ -20,9 +20,9 @@
 			"min": "minum one genre"
 		},
 		"aired":{
-			"description": "string of aired anime",
-			"type": "string",
-			"max": "current string"
+			"description": "year of aired anime",
+			"type": "number",
+			"max": "current year"
 		},
 		"episodes":{
 			"description": "amount of episodes",
