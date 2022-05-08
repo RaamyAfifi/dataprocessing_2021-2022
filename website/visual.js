@@ -8,14 +8,26 @@ requestAnimeEpisode.onload = function ()
 
     if (requestAnimeEpisode.status >= 200 && requestAnimeEpisode.status < 400)
     {
+        let olderThan = 0;
+        let youngerThan = 0;
+        let unknown = 0;
         let labels = [];
         let graphData = [];
         data.forEach(data => {
-            console.log(data.title);
-            labels.push(data.title);
-            graphData.push(data.episodes);
-        });
+            let year = data.aired;
+            console.log(year + "year");
 
+            if(year >0 && year < 2000){
+                olderThan++;
+            }else if(year >= 2000){
+                youngerThan++;
+            }
+            else{
+                unknown++
+            }
+        });
+        labels.push("Before year 2000", "After year 2000", "Unknown");
+        graphData.push(olderThan, youngerThan, unknown);
         let ctx = document.getElementById("graph")
         let myChart = new Chart(ctx, {
             type: 'doughnut',
@@ -35,7 +47,7 @@ requestAnimeEpisode.onload = function ()
                     borderColor: [
                         'rgba(151, 8, 8, 1)'
                     ],
-                    borderWidth: 1
+                    borderWidth: 0
                 }]
             },
             options: {
@@ -61,25 +73,43 @@ requestAnimeEpisode.send();
 
 let requestAnime = new XMLHttpRequest()
 
-requestAnime.open('GET', 'http://localhost:8080/reviews/', true)
+requestAnime.open('GET', 'http://localhost:8080/animes/', true)
 requestAnime.onload = function ()
 {
     // Begin accessing JSON data here
-    data = JSON.parse(this.response)
+    console.log(this.response);
+    data = JSON.parse(this.response);
 
     if (requestAnime.status >= 200 && requestAnime.status < 400)
     {
+        let countLessTwenty = 0;
+        let countTwentyToFourty= 0;
+        let countFourtyPlus= 0;
+        let unknownScore = 0;
         let labels = [];
         let graphData = [];
         data.forEach(data => {
-            console.log(data.uid);
-            labels.push(data.uid);
-            graphData.push(data.score);
-        });
+            let episodes = data.episodes;
+            console.log(episodes + "year");
 
+            if(episodes >0 && episodes < 20){
+                countLessTwenty++;
+            }else if(episodes >= 20 && episodes < 40){
+                countTwentyToFourty++;
+            }
+            else if(episodes >= 40){
+                countFourtyPlus++;
+            }
+            else{
+                unknownScore++
+            }
+
+        });
+        labels.push("Less than 20 episodes", "20 to 40 episodes ", "40+ episodes", "Unknown");
+        graphData.push(countLessTwenty, countTwentyToFourty, countFourtyPlus, unknownScore);
         let ctx = document.getElementById("graph2")
         let myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
@@ -88,33 +118,17 @@ requestAnime.onload = function ()
                     data: graphData,
                     backgroundColor: [
                         'rgba(151, 8, 8, 0.6)',
+                        'rgba(8, 250, 8, 0.6)',
+                        'rgba(8, 8, 250, 0.6)',
+                        'rgba(151, 150, 8, 0.6)',
 
                     ],
                     borderColor: [
                         'rgba(151, 8, 8, 1)'
                     ],
-                    // borderWidth: 1
                 }]
             },
             options: {
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Rating',
-
-                        },
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }],
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Anime UID'
-                        }
-                    }]
-                },
                 responsive: true,
                 plugins: {
                     legend: {
