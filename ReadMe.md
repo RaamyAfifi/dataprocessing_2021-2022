@@ -22,6 +22,13 @@ http://localhost:8080/swagger-ui/#/
 
 In het de mappenstructuur bevindt zich 2 mappen, genaamd "json" waarin zich de json-bestanden / jsonschema bevinden en "xml" waarin zich de xml-bestanden xsd bevinden.
 
+# Xamp
+
+Er is gebruik gemaakt van windows 10 en daarbij is het van belang dat er gebruik wordt gemaakt van Xamp.
+
+# Chart JS
+
+Er is gebruik gemaakt van Chart Js voor de visuele weergave. Dit is een eenvoudige tool om data grafisch weer te geven. Hiermee is al ervaring opgebouwd in eerdere projecten.
 
 
 - Naam: Raamy Afifi
