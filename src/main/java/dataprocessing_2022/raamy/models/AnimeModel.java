@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 public class AnimeModel
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @ApiModelProperty(notes = "beschrijving", dataType = "int")
     private int uid;
     @NotBlank(message = "Uid is mandatory")
