@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 24 mrt 2022 om 23:12
+-- Gegenereerd op: 09 mei 2022 om 11:32
 -- Serverversie: 10.4.6-MariaDB
 -- PHP-versie: 7.3.9
 
@@ -32,8 +32,8 @@ CREATE TABLE `anime` (
   `uid` int(5) NOT NULL,
   `title` varchar(100) DEFAULT NULL,
   `genre` varchar(153) DEFAULT NULL,
-  `aired` varchar(28) DEFAULT NULL,
-  `episodes` varchar(5) DEFAULT NULL,
+  `aired` int(4) DEFAULT NULL,
+  `episodes` int(5) DEFAULT NULL,
   `members` int(7) DEFAULT NULL,
   `score` varchar(18) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -43,11 +43,32 @@ CREATE TABLE `anime` (
 --
 
 INSERT INTO `anime` (`uid`, `title`, `genre`, `aired`, `episodes`, `members`, `score`) VALUES
-(1, 'Cowboy Bebop', '[\'Action\', \'Adventure\', \'Comedy\', \'Drama\', \'Sci-Fi\', \'Space\']', 'Apr 3, 1998 to Apr 24, 1999', '26.0', 930311, '8.81'),
-(2, 'Cowboy Bebop: Tengoku no Tobira', '[\'Action\', \'Drama\', \'Mystery\', \'Sci-Fi\', \'Space\']', 'Sep 1, 2001', '1.0', 223199, '8.4'),
-(3, 'Trigun', '[\'Action\', \'Sci-Fi\', \'Adventure\', \'Comedy\', \'Drama\', \'Shounen\']', 'Apr 1, 1998', '26.0', 460146, '8.3'),
-(4, 'Witch Hunter Robin', '[\'Action\', \'Magic\', \'Police\', \'Supernatural\', \'Drama\', \'Mystery\']', 'Jul 2, 2002', '26.0', 85182, '7.2'),
-(5, 'Bouken Ou Beet', '[\'Adventure\', \'Fantasy\', \'Shounen\', \'Supernatural\']', 'Sep 30, 2004', '52.0', 12319, '7.0');
+(1, 'Sword art online', '[\'Fantasy\', \'Drama\', \'Sci-Fi\']', 2020, 5, 45, '8'),
+(2, 'Cowboy Bebop: Tengoku no Tobira', '[\'Action\', \'Drama\', \'Mystery\', \'Sci-Fi\', \'Space\']', 2001, 1, 223199, '8.4'),
+(3, 'Trigun', '[\'Action\', \'Sci-Fi\', \'Adventure\', \'Comedy\', \'Drama\', \'Shounen\']', 1998, 26, 460146, '8.3'),
+(4, 'Witch Hunter Robin', '[\'Action\', \'Magic\', \'Police\', \'Supernatural\', \'Drama\', \'Mystery\']', 2002, 26, 85182, '7.2'),
+(5, 'Death Note', '[\'Action\', \'Drama\']', 2015, 12, 5, '4'),
+(6, 'One Piece', '[\'Magic\']', 0, 25, 65, '8.0'),
+(7, 'Boruto', '[\'Action\', \'Sci-Fi\', \'Space\']', 2019, 50, 45, '10'),
+(8, 'Naturo', '[\'Action\', \'Drama\', \'Mystery\', \'Sci-Fi\', \'Space\']', 2007, 5, 45, '8'),
+(9, 'Demon Slayer', '[\'Action\', \'Drama\', \'Mystery\']', 2016, 65, 120, '9');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `hibernate_sequence`
+--
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `hibernate_sequence`
+--
+
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+(10);
 
 -- --------------------------------------------------------
 
@@ -72,7 +93,8 @@ INSERT INTO `profile` (`profile`, `gender`, `birthday`, `favorites_anime`, `link
 ('KingStormy', 'Man', '20 Sep, 2005', '[\'2\', \'4\']', 'https://myanimelist.net/profile/KingStormy'),
 ('Deury', 'Man', '20 Sep, 2005', '[\'2\', \'3\', \'4\']', 'https://myanimelist.net/profile/Deury'),
 ('WhiteTiger', 'Women', '10 Aug, 2000', '[\'1\', \'4\']', 'https://myanimelist.net/profile/WhiteTiger'),
-('KingCrow', 'Man', '8 Jun, 1999', '[4, 5]', 'https://myanimelist.net/profile/KingCrow');
+('KingCrow', 'Man', '8 Jun, 1999', '[4, 5]', 'https://myanimelist.net/profile/KingCrow'),
+('', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -123,7 +145,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT voor een tabel `anime`
 --
 ALTER TABLE `anime`
-  MODIFY `uid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `uid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=431;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
